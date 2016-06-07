@@ -1,0 +1,14 @@
+library(rjson)#
+library(httr)#
+#
+load("MovieLense2016.rda")#
+movieInfo <- MovieLense2016Meta#
+movieInfo$title <- as.character(movieInfo$title)#
+#
+for(i in 1:length(movieInfo)){#
+  title <- movieInfo[i,]$title#
+  if(as.integer(regexpr("\\(", title))){#
+    title <- substr(title, 0, as.integer(regexpr("\\(", title)) - 2)#
+  }#
+  jsonInfo <- fromJSON(file = paste0("http://www.omdbapi.com/?t=", title))#
+}
